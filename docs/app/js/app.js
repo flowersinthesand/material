@@ -32,6 +32,9 @@ function(SERVICES, COMPONENTS, DEMOS, PAGES,
     })
     .when('/getting-started', {
       templateUrl: 'partials/getting-started.tmpl.html'
+    })
+    .when('/kitchen-sink', {
+      templateUrl: 'partials/kitchen-sink.tmpl.html'
     });
   $mdThemingProvider.definePalette('docs-blue', $mdThemingProvider.extendPalette('blue', {
     '50': '#DCEFFF',
@@ -142,6 +145,10 @@ function(SERVICES, COMPONENTS, DEMOS, PAGES, $location, $rootScope, $http, $wind
   var sections = [{
     name: 'Getting Started',
     url: 'getting-started',
+    type: 'link'
+  },{
+    name: 'Kitchen Sink',
+    url: '/kitchen-sink',
     type: 'link'
   }];
 
@@ -629,6 +636,44 @@ function($scope, $rootScope) {
   '$rootScope',
 function($rootScope) {
   $rootScope.currentComponent = $rootScope.currentDoc = null;
+}])
+
+.controller('KitchenCtrl', [
+  '$rootScope',
+  '$scope',
+  'COMPONENTS',
+  'DEMOS',
+function($rootScope, $scope, COMPONENTS, DEMOS) {
+  $rootScope.currentComponent = $rootScope.currentDoc = null;
+  $scope.items = [];
+
+  angular.forEach(DEMOS, function(componentDemos) {
+    var demoComponent;
+    angular.forEach(COMPONENTS, function(component) {
+      if (componentDemos.name === component.name) {
+        demoComponent = component;
+      }
+    });
+    demoComponent = demoComponent || angular.extend({}, componentDemos);
+
+    $scope.items.push({
+      name: componentDemos.label,
+      demos: componentDemos.demos.slice(0, 1),
+      component: demoComponent
+    });
+  });
+}])
+
+// inspired from http://blog.majgis.com/resolve-controller/
+.directive('resolveController', ['$controller', function($controller) {
+  return {
+    scope: true,
+    link: function(scope, elem, attrs) {
+      var resolve = scope.$eval(attrs.resolve);
+      angular.extend(resolve, {$scope: scope});
+      $controller(attrs.resolveController, resolve);
+    }
+  };
 }])
 
 .controller('LayoutCtrl', [

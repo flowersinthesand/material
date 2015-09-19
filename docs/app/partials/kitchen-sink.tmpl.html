@@ -1,0 +1,23 @@
+<style>
+  body > md-sidenav {
+    display: none !important;
+  }
+  body > md-sidenav + div > md-toolbar {
+    display: none !important;
+  }
+  .layout-content, .doc-content {
+    max-width: inherit !important;
+  }
+</style>
+<div ng-controller="KitchenCtrl" class="doc-content">
+  <md-content>
+    <p>Note that <em>Kitchen Sink</em> page is created and maintained by <a href="https://github.com/flowersinthesand">@flowersinthesand</a> not Angular Material team. Please file issues related to this page in <a href="https://github.com/flowersinthesand/material">flowersinthesand/material GitHub Issues</a>.</p>
+    <p>This page includes every single Angular Material <code>v1.0.1</code> component, which is inspired from <a href="http://foundation.zurb.com/docs/components/kitchen_sink.html">Foundation's Kitchen Sink</a>.</p>
+    <div ng-repeat="item in items">
+      <div class="doc-content">
+        <h3>{{item.name}}</h3>
+      </div>
+      <div resolve-controller="DemoCtrl" ng-include="'partials/demo.tmpl.html'" resolve="item"></div>
+    </div>
+  </md-content>
+</div>
