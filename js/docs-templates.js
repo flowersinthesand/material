@@ -195,10 +195,21 @@ angular.module('docsApp').run(['$templateCache', function($templateCache) {
 
 angular.module('docsApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('partials/kitchen-sink.tmpl.html',
+    '<style>\n' +
+    '  body > md-sidenav {\n' +
+    '    display: none !important;\n' +
+    '  }\n' +
+    '  body > md-sidenav + div > md-toolbar {\n' +
+    '    display: none !important;\n' +
+    '  }\n' +
+    '  .layout-content, .doc-content {\n' +
+    '    max-width: inherit !important;\n' +
+    '  }\n' +
+    '</style>\n' +
     '<div ng-controller="KitchenCtrl" class="doc-content">\n' +
     '  <md-content>\n' +
     '    <p>Note that <em>Kitchen Sink</em> page is created and maintained by <a href="https://github.com/flowersinthesand">@flowersinthesand</a> not Angular Material team. Please file issues related to this page in <a href="https://github.com/flowersinthesand/material">flowersinthesand/material GitHub Issues</a>.</p>\n' +
-    '    <p>This page includes every single Angular Material <code>v0.11.0</code> component, which is inspired from <a href="http://foundation.zurb.com/docs/components/kitchen_sink.html">Foundation\'s Kitchen Sink</a>.</p>\n' +
+    '    <p>This page includes every single Angular Material <code>v0.11.1</code> component, which is inspired from <a href="http://foundation.zurb.com/docs/components/kitchen_sink.html">Foundation\'s Kitchen Sink</a>.</p>\n' +
     '    <div ng-repeat="item in items">\n' +
     '      <div class="doc-content">\n' +
     '        <h3>{{item.name}}</h3>\n' +
